@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "user_data")
@@ -14,10 +16,11 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+	@NotEmpty(message = "username is mandatory field.")
 	@Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
 	private String username;
 	
+	@Size(min = 2, message = "First Name should have minimum 2 charecter")
 	@Column(name = "FIRST_NAME", length = 50, nullable = false)
 	private String firstname;
 	
