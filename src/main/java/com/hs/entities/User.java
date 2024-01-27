@@ -1,10 +1,14 @@
 package com.hs.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -14,7 +18,7 @@ import jakarta.validation.constraints.Size;
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	private Long id;
 	@NotEmpty(message = "username is mandatory field.")
 	@Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
@@ -36,7 +40,9 @@ public class User {
 	@Column(name = "SSN", length = 50, nullable = false, unique = true)
 	private String ssn;
 
-	
+	@OneToMany(mappedBy = "user")
+	//@JoinColumn(name = "orderId")
+	private List<Order> orders;
 	
 	public User() {
 		}
@@ -112,6 +118,23 @@ public class User {
 
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
+	}
+
+
+	
+
+
+
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+
+
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 
